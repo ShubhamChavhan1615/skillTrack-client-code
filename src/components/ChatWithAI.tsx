@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FiSend, FiMic, FiSmile } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters, AiOutlineArrowDown } from 'react-icons/ai';
 import { BsMoon, BsSun } from 'react-icons/bs';
+import { AIChatApi } from '../services';
 
 const emojis = ['😀', '😂', '😍', '😎', '😢', '😡', '👍', '🙏', '💯', '🎉'];
 
@@ -23,7 +24,7 @@ const ChatWithAI: React.FC = () => {
         setResponse(null);
         setMessages((prev) => [...prev, { sender: 'user', text: prompt, timestamp }]);
         try {
-            const { data } = await axios.post('http://localhost:4000/api/ai/chat', { prompt });
+            const { data } = await axios.post(AIChatApi, { prompt });
             setMessages((prev) => [...prev, { sender: 'ai', text: data.response, timestamp: new Date().toLocaleTimeString() }]);
             setResponse(data.response);
         } catch (error) {

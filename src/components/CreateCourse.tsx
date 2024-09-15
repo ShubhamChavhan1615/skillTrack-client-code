@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
+import { createCourseApi } from '../services';
 
 interface IFormInput {
     title: string;
@@ -25,7 +26,7 @@ const CreateCourse: React.FC = () => {
             formData.append('tags', JSON.stringify(data.tags));
 
             const authToken = localStorage.getItem('authToken');
-            const response = await axios.post('http://localhost:4000/instructor/api/create/course', formData, {
+            const response = await axios.post(createCourseApi, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`,

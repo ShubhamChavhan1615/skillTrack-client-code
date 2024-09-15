@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../app/store/features/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for the toast notifications
+import { deleteCourseApi } from '../services';
 
 const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU'); // Replace with your Stripe publishable key
 
@@ -54,7 +55,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
 
     const handleDeleteCourse = async (courseId: any) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/instructor/api/delete/course/${courseId}`, {
+            const response = await axios.delete(deleteCourseApi + `/${courseId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`
                 }

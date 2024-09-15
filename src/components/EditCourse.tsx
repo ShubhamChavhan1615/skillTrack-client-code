@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for the toast notifications
+import { editCourseApi } from '../services';
 
 interface CourseFormValues {
     title: string;
@@ -31,7 +32,7 @@ const EditCourse: React.FC = () => {
         }
 
         try {
-            await axios.put(`http://localhost:4000/instructor/api/edit/course/${courseId}`, formData, {
+            await axios.put(editCourseApi + `/${courseId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`

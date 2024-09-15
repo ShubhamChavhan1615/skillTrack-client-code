@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { addQuizeApi } from '../services';
 
 interface QuizFormInputs {
   title: string;
@@ -28,8 +29,9 @@ const AddQuizToCourse: React.FC = () => {
 
   const onSubmit: SubmitHandler<QuizFormInputs> = async (data) => {
     try {
-      const response = await axios.post(`http://localhost:4000/quize/api/create/quiz/${courseId}`, data, {
-        headers:{
+      // const response = await axios.post(`http://localhost:4000/quize/api/create/quiz/${courseId}`, data, {
+      const response = await axios.post(addQuizeApi + `/${courseId}`, data, {
+        headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`
         }
       });
