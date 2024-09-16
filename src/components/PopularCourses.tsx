@@ -8,10 +8,10 @@ import { AppDispatch, RootState } from '../app/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../app/store/features/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for the toast notifications
+import 'react-toastify/dist/ReactToastify.css'; 
 import { deleteCourseApi } from '../services';
 
-const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU'); // Replace with your Stripe publishable key
+const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU');
 
 interface Course {
     _id: string;
@@ -33,14 +33,11 @@ interface PopularCoursesProps {
 
 const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-
-    // Get user state
     const [user, setUser] = useState<any>(null);
     const dispatch: AppDispatch = useDispatch();
     const userProfile = useSelector((state: RootState) => state.userProfileData);
 
     useEffect(() => setUser(userProfile), [userProfile]);
-
     useEffect(() => {
         dispatch(fetchUserProfile());
     }, [dispatch]);
@@ -59,16 +56,16 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`
                 }
-            })
-            toast.success(response.data.msg)
+            });
+            toast.success(response.data.msg);
             setTimeout(() => {
                 window.location.reload();
-            }, 999)
+            }, 999);
         } catch (error: any) {
             console.log(error);
-            toast.error(error)
+            toast.error(error);
         }
-    }
+    };
 
     return (
         <Elements stripe={stripePromise}>
@@ -77,17 +74,17 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 {courses.map((course) => (
                     <div
                         key={course._id}
-                        className="bg-white dark:bg-gray-900 rounded-lg shadow-lg hover:shadow-2xl transform transition-transform duration-300 hover:scale-105 overflow-hidden"
+                        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 overflow-hidden border border-gray-200 dark:border-gray-700"
                     >
                         <Link to={`/description/course/${course._id}`}>
                             <img
                                 src={course.thumbnail}
                                 alt={course.title}
-                                className="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-90"
+                                className="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
                             />
                         </Link>
-                        <div className="p-6 space-y-3">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                        <div className="p-5 space-y-3">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-200">
                                 {course.title}
                             </h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -100,7 +97,10 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 {course.price === '0' ? (
-                                    <Link to={`/course/${course._id}/enroll`} className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                                    <Link
+                                        to={`/course/${course._id}/enroll`}
+                                        className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                                    >
                                         Enroll Now
                                     </Link>
                                 ) : (
@@ -115,15 +115,27 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
 
                             {user && user.role === 'instructor' && user._id === course.instructor._id && (
                                 <div className="mt-4 flex justify-between space-x-2">
-                                    <Link to={`/course/${course._id}/edit`} className="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition duration-300">
+                                    <Link
+                                        to={`/course/${course._id}/edit`}
+                                        className="bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300"
+                                    >
                                         Edit Course
                                     </Link>
-                                    <Link to={`/course/${course._id}/add-quiz`} className="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition duration-300">
+                                    <Link
+                                        to={`/course/${course._id}/add-quiz`}
+                                        className="bg-purple-500 text-white  rounded-lg hover:bg-purple-600 transition duration-300"
+                                    >
                                         Add Quiz
                                     </Link>
-                                    <button onClick={() => handleDeleteCourse(course._id)} className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
+                                    <button
+                                        onClick={() => handleDeleteCourse(course._id)}
+                                        className="bg-red-500 text-white  rounded-lg hover:bg-red-600 transition duration-300"
+                                    >
                                         Delete
                                     </button>
+                                    <Link to={`/course/${course._id}/schedule/google-meet`} className="bg-blue-500 text-white  rounded-lg hover:bg-blue-600">
+                                        Google Meet
+                                    </Link>
                                 </div>
                             )}
                         </div>
@@ -179,10 +191,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
 
             if (result.error) {
                 console.error(result.error.message);
-                toast.error(result.error.message)
+                toast.error(result.error.message);
             } else if (result.paymentIntent?.status === 'succeeded') {
                 toast.success('Payment succeeded!');
-                console.log('Payment succeeded!');
             }
         } catch (error) {
             console.error('Payment error:', error);
@@ -193,10 +204,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-lg relative">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">{course.title}</h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">Price: ₹{course.price}</p>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg relative">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+                    {course.title}
+                </h2>
+                <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">
+                    Price: ₹{course.price}
+                </p>
 
                 <form onSubmit={handleSubmit(handlePayment)} className="space-y-6">
                     <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600">

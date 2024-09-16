@@ -44,8 +44,8 @@ function App() {
           <Route path='/user/profile' element={<Profile />} />
           <Route path='/course/:courseId/edit' element={<EditCourse />} />
           <Route path='/enrolledCourse/:courseId' element={<EnrolledCourses />} />
-          <Route path='/Instructor/create/googleMeet' element={<CreateGoogleMeet />} />
-          <Route path='/Instructor/schedule/googleMeet' element={<ScheduleMeeting />} />
+          <Route path='/course/:courseId/verify/google-meet' element={<CreateGoogleMeet />} />
+          <Route path='/course/:courseId/schedule/google-meet' element={<ScheduleMeeting />} />
         </Routes>
         <Footer />
       </Router>
