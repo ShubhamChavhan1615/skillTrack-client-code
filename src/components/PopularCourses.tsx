@@ -133,7 +133,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                                     >
                                         Delete
                                     </button>
-                                    <Link to={`/course/${course._id}/schedule/google-meet`} className="bg-blue-500 text-white  rounded-lg hover:bg-blue-600">
+                                    <Link to={`/course/${course._id}/verify/google-meet`} className="bg-blue-500 text-white  rounded-lg hover:bg-blue-600">
                                         Google Meet
                                     </Link>
                                 </div>
