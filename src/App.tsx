@@ -19,6 +19,8 @@ import Profile from './components/Profile'
 import AddQuizToCourse from './components/AddQuizToCourse'
 import EditCourse from './components/EditCourse'
 import EnrolledCourses from './components/EnrolledCourses'
+import CreateGoogleMeet from './components/CreateGoogleMeet'
+import ScheduleMeeting from './components/ScheduleMeeting'
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
           <Route path='/user/profile' element={<Profile />} />
           <Route path='/course/:courseId/edit' element={<EditCourse />} />
           <Route path='/enrolledCourse/:courseId' element={<EnrolledCourses />} />
+          <Route path='/Instructor/create/googleMeet' element={<CreateGoogleMeet />} />
+          <Route path='/Instructor/schedule/googleMeet' element={<ScheduleMeeting />} />
         </Routes>
         <Footer />
       </Router>
