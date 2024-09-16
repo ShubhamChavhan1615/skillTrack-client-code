@@ -12,7 +12,7 @@ const ScheduleMeeting: React.FC = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:4000/google/create-meet', {
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/google/create-meet`, {
                 summary,
                 description,
                 startTime,

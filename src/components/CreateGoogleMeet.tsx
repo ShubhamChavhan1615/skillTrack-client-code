@@ -3,7 +3,7 @@ import React from 'react';
 const CreateGoogleMeet: React.FC = () => {
     const handleAuth = async () => {
         // Redirect to the Google OAuth endpoint on your backend
-        window.location.href = 'http://localhost:4000/google/auth/google'; // Redirects to the server OAuth route
+        window.location.href = `${import.meta.env.VITE_SERVER_API}/google/auth/google`; // Redirects to the server OAuth route
     };
 
     return (
