@@ -56,78 +56,76 @@ const EditCourse: React.FC = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto p-8 bg-white shadow-lg rounded-lg">
+        <div className="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
             <ToastContainer /> {/* Add ToastContainer for displaying toasts */}
-            <h2 className="text-2xl font-bold mb-6">Edit Course</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <h2 className="text-3xl font-semibold mb-8 text-gray-800">Edit Course</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Title</label>
+                    <label className="block text-sm font-semibold text-gray-700">Title</label>
                     <input
                         {...register('title', { required: true })}
-                        className={`mt-1 block w-full p-2 border ${errors.title ? 'border-red-500' : 'border-gray-300'
-                            } rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
+                        className={`mt-2 block w-full p-3 border ${errors.title ? 'border-red-500' : 'border-gray-300'
+                            } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200`}
                         placeholder="Course Title"
                     />
-                    {errors.title && <p className="text-red-500 text-sm">Title is required</p>}
+                    {errors.title && <p className="text-red-500 text-sm mt-1">Title is required</p>}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <label className="block text-sm font-semibold text-gray-700">Description</label>
                     <textarea
                         {...register('description', { required: true })}
-                        className={`mt-1 block w-full p-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'
-                            } rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
+                        className={`mt-2 block w-full p-3 border ${errors.description ? 'border-red-500' : 'border-gray-300'
+                            } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200`}
                         placeholder="Course Description"
                     ></textarea>
-                    {errors.description && <p className="text-red-500 text-sm">Description is required</p>}
+                    {errors.description && <p className="text-red-500 text-sm mt-1">Description is required</p>}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Category</label>
+                    <label className="block text-sm font-semibold text-gray-700">Category</label>
                     <input
                         {...register('category', { required: true })}
-                        className={`mt-1 block w-full p-2 border ${errors.category ? 'border-red-500' : 'border-gray-300'
-                            } rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
+                        className={`mt-2 block w-full p-3 border ${errors.category ? 'border-red-500' : 'border-gray-300'
+                            } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200`}
                         placeholder="Course Category"
                     />
-                    {errors.category && <p className="text-red-500 text-sm">Category is required</p>}
+                    {errors.category && <p className="text-red-500 text-sm mt-1">Category is required</p>}
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Price (in Rs.)</label>
+                    <label className="block text-sm font-semibold text-gray-700">Price (in Rs.)</label>
                     <input
                         {...register('price', { required: true, valueAsNumber: true })}
                         type="number"
-                        className={`mt-1 block w-full p-2 border ${errors.price ? 'border-red-500' : 'border-gray-300'
-                            } rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500`}
+                        className={`mt-2 block w-full p-3 border ${errors.price ? 'border-red-500' : 'border-gray-300'
+                            } rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200`}
                         placeholder="Course Price"
                     />
-                    {errors.price && <p className="text-red-500 text-sm">Price is required</p>}
+                    {errors.price && <p className="text-red-500 text-sm mt-1">Price is required</p>}
                 </div>
 
-                <div className="mb-6">
-                    <label className="block text-sm font-medium mb-2" htmlFor="tags">Tags</label>
+                <div>
+                    <label className="block text-sm font-semibold text-gray-700">Tags</label>
                     <input
-                        id="tags"
                         {...register('tags')}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white"
-                        type="text"
+                        className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
                         placeholder="Enter course tags (comma separated)"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Thumbnail</label>
+                    <label className="block text-sm font-semibold text-gray-700">Thumbnail</label>
                     <input
                         {...register('thumbnail')}
                         type="file"
-                        className="mt-1 block w-full p-2"
+                        className="mt-2 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full bg-indigo-600 text-white p-2 rounded-md shadow hover:bg-indigo-700"
+                    className="w-full bg-indigo-600 text-white font-semibold py-3 rounded-lg shadow hover:bg-indigo-700 transition-colors duration-300"
                 >
                     Update Course
                 </button>

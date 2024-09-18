@@ -149,6 +149,9 @@ const Navbar: React.FC = () => {
           <Link to="/contact" onClick={handleLinkClick} className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
             Contact
           </Link>
+          {user && user.role === 'instructor' && (
+            <Link to={'/AddCourse'} className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500" >AddCourse</Link>
+          )}
           {isLoggedIn ? (
             <>
               <Link to="/user/profile" onClick={handleLinkClick} className="block px-3 py-2 text-base font-medium text-gray-700 rounded-md hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">

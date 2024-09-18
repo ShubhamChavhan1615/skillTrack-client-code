@@ -3,6 +3,8 @@ import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { addQuizeApi } from '../services';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface QuizFormInputs {
   title: string;
@@ -29,26 +31,25 @@ const AddQuizToCourse: React.FC = () => {
 
   const onSubmit: SubmitHandler<QuizFormInputs> = async (data) => {
     try {
-      // const response = await axios.post(`http://localhost:4000/quize/api/create/quiz/${courseId}`, data, {
       const response = await axios.post(addQuizeApi + `/${courseId}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`
         }
       });
-      console.log(response.data);
-
+      toast.success('Quiz created successfully!');
       reset();
     } catch (error) {
       console.error(error);
-      alert('Failed to create quiz.');
+      toast.error('Failed to create quiz.');
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white text-gray-900 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add Quiz to Course</h2>
+    <div className="max-w-3xl mx-auto p-8 bg-white text-gray-900 rounded-lg shadow-lg">
+      <ToastContainer />
+      <h2 className="text-3xl font-semibold mb-6 text-center text-green-700">Add Quiz to Course</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Quiz Title */}
         <div className="flex flex-col space-y-2">
           <label htmlFor="title" className="text-lg font-medium">Quiz Title</label>
@@ -56,20 +57,20 @@ const AddQuizToCourse: React.FC = () => {
             id="title"
             type="text"
             {...register('title', { required: 'Quiz title is required' })}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           {errors.title && <span className="text-red-500">{errors.title.message}</span>}
         </div>
 
         {/* Questions */}
         {fields.map((field, index) => (
-          <div key={field.id} className="border p-4 bg-gray-100 rounded-md space-y-4">
+          <div key={field.id} className="border p-6 bg-gray-50 rounded-md space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-medium">Question {index + 1}</h3>
+              <h3 className="text-lg font-semibold">Question {index + 1}</h3>
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="text-red-500 hover:text-red-600"
+                className="text-red-600 hover:text-red-700"
               >
                 Remove
               </button>
@@ -77,12 +78,12 @@ const AddQuizToCourse: React.FC = () => {
 
             {/* Question Text */}
             <div className="flex flex-col space-y-2">
-              <label htmlFor={`questions.${index}.question`} className="text-lg font-medium">Question</label>
+              <label htmlFor={`questions.${index}.question`} className="font-medium">Question</label>
               <input
                 id={`questions.${index}.question`}
                 type="text"
                 {...register(`questions.${index}.question`, { required: 'Question is required' })}
-                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
               {errors.questions?.[index]?.question && (
                 <span className="text-red-500">{errors.questions[index]?.question?.message}</span>
@@ -90,17 +91,17 @@ const AddQuizToCourse: React.FC = () => {
             </div>
 
             {/* Options */}
-            <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {field.options.slice(0, 3).map((_option, optIndex) => (
                 <div key={optIndex} className="flex flex-col">
-                  <label htmlFor={`questions.${index}.options.${optIndex}`} className="text-lg font-medium">
+                  <label htmlFor={`questions.${index}.options.${optIndex}`} className="font-medium">
                     Option {optIndex + 1}
                   </label>
                   <input
                     id={`questions.${index}.options.${optIndex}`}
                     type="text"
                     {...register(`questions.${index}.options.${optIndex}`, { required: 'Option is required' })}
-                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                   {errors.questions?.[index]?.options?.[optIndex] && (
                     <span className="text-red-500">
@@ -113,12 +114,12 @@ const AddQuizToCourse: React.FC = () => {
 
             {/* Correct Answer */}
             <div className="flex flex-col space-y-2">
-              <label htmlFor={`questions.${index}.correctAnswer`} className="text-lg font-medium">Correct Answer</label>
+              <label htmlFor={`questions.${index}.correctAnswer`} className="font-medium">Correct Answer</label>
               <input
                 id={`questions.${index}.correctAnswer`}
                 type="text"
                 {...register(`questions.${index}.correctAnswer`, { required: 'Correct answer is required' })}
-                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
               />
               {errors.questions?.[index]?.correctAnswer && (
                 <span className="text-red-500">{errors.questions[index]?.correctAnswer?.message}</span>
@@ -131,13 +132,13 @@ const AddQuizToCourse: React.FC = () => {
         <button
           type="button"
           onClick={() => append({ question: '', options: ['', '', ''], correctAnswer: '' })}
-          className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
           Add New Question
         </button>
 
         {/* Submit Button */}
-        <button type="submit" className="w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+        <button type="submit" className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
           Create Quiz
         </button>
       </form>

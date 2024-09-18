@@ -74,16 +74,16 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                 {courses.map((course) => (
                     <div
                         key={course._id}
-                        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105 overflow-hidden border border-gray-200 dark:border-gray-700"
+                        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 overflow-hidden border border-gray-200 dark:border-gray-700"
                     >
                         <Link to={`/description/course/${course._id}`}>
                             <img
                                 src={course.thumbnail}
                                 alt={course.title}
-                                className="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
+                                className="w-full h-48 object-cover transition-opacity duration-200 hover:opacity-90"
                             />
                         </Link>
-                        <div className="p-5 space-y-3">
+                        <div className="p-5 space-y-4">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-gray-200">
                                 {course.title}
                             </h3>
@@ -99,14 +99,14 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                                 {course.price === '0' ? (
                                     <Link
                                         to={`/course/${course._id}/enroll`}
-                                        className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                                        className="bg-green-500 text-white py-2 px-4 rounded-full shadow-lg hover:bg-green-600 transition-transform duration-300 hover:scale-105"
                                     >
                                         Enroll Now
                                     </Link>
                                 ) : (
                                     <button
                                         onClick={() => openPaymentModal(course)}
-                                        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-all duration-300"
+                                        className="bg-blue-600 text-white py-2 px-4 rounded-full shadow-lg hover:bg-blue-700 transition-transform duration-300 hover:scale-105"
                                     >
                                         Buy Now
                                     </button>
@@ -117,23 +117,26 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                                 <div className="mt-4 flex justify-between space-x-2">
                                     <Link
                                         to={`/course/${course._id}/edit`}
-                                        className="bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-300"
+                                        className="bg-yellow-500 text-white rounded-full py-2 px-4 shadow-lg hover:bg-yellow-600 transition-transform duration-300 hover:scale-105"
                                     >
                                         Edit Course
                                     </Link>
                                     <Link
                                         to={`/course/${course._id}/add-quiz`}
-                                        className="bg-purple-500 text-white  rounded-lg hover:bg-purple-600 transition duration-300"
+                                        className="bg-purple-500 text-white rounded-full py-2 px-4 shadow-lg hover:bg-purple-600 transition-transform duration-300 hover:scale-105"
                                     >
                                         Add Quiz
                                     </Link>
                                     <button
                                         onClick={() => handleDeleteCourse(course._id)}
-                                        className="bg-red-500 text-white  rounded-lg hover:bg-red-600 transition duration-300"
+                                        className="bg-red-500 text-white rounded-full py-2 px-4 shadow-lg hover:bg-red-600 transition-transform duration-300 hover:scale-105"
                                     >
                                         Delete
                                     </button>
-                                    <Link to={`/course/${course._id}/verify/google-meet`} className="bg-blue-500 text-white  rounded-lg hover:bg-blue-600">
+                                    <Link
+                                        to={`/course/${course._id}/verify/google-meet`}
+                                        className="bg-blue-500 text-white rounded-full py-2 px-4 shadow-lg hover:bg-blue-600 transition-transform duration-300 hover:scale-105"
+                                    >
                                         Google Meet
                                     </Link>
                                 </div>
@@ -205,8 +208,8 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg relative">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-2xl w-full max-w-lg relative">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                     {course.title}
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">
@@ -235,19 +238,18 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
                     </div>
 
                     <button
-                        className={`w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition-all duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-full shadow-lg transition-transform duration-300 hover:scale-105 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         type="submit"
                         disabled={!stripe || loading}
                     >
-                        {loading ? 'Processing...' : 'Pay Now'}
+                        {loading ? 'Processing...' : 'Confirm Payment'}
                     </button>
                 </form>
-
                 <button
-                    className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition duration-300"
                     onClick={onClose}
+                    className="absolute top-4 right-4 text-gray-700 dark:text-gray-300 hover:text-red-500"
                 >
-                    Cancel
+                    ✖
                 </button>
             </div>
         </div>
