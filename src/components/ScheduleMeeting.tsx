@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface MeetingFormInputs {
     summary: string;
@@ -12,16 +13,18 @@ interface MeetingFormInputs {
 const ScheduleMeeting: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<MeetingFormInputs>();
     const [meetLink, setMeetLink] = useState('');
+    const { courseId } = useParams<{ courseId: string }>();
 
     const onSubmit: SubmitHandler<MeetingFormInputs> = async (data) => {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/google/create-meet`, data);
+            const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/google/create-meet/${courseId}`, data);
             setMeetLink(response.data.meetLink);
         } catch (error) {
             console.error('Error creating meeting:', error);
             alert('Failed to schedule a meeting');
         }
     };
+    
 
     return (
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-8 mt-10">

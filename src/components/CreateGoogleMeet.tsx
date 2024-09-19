@@ -1,9 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const CreateGoogleMeet: React.FC = () => {
+    const { courseId } = useParams<{ courseId: string }>();
+
     const handleAuth = async () => {
         // Redirect to the Google OAuth endpoint on your backend
-        window.location.href = `${import.meta.env.VITE_SERVER_API}/google/:courseId/auth/google`; // Redirects to the server OAuth route
+        window.location.href = `${import.meta.env.VITE_SERVER_API}/google/${courseId}/auth/google`; // Redirects to the server OAuth route
     };
 
     return (
