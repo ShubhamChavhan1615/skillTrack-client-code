@@ -2,6 +2,8 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
 import { createCourseApi } from '../services';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IFormInput {
     title: string;
@@ -13,7 +15,7 @@ interface IFormInput {
 }
 
 const CreateCourse: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>();
 
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
@@ -26,15 +28,16 @@ const CreateCourse: React.FC = () => {
             formData.append('tags', JSON.stringify(data.tags));
 
             const authToken = localStorage.getItem('authToken');
-            const response = await axios.post(createCourseApi, formData, {
+            await axios.post(createCourseApi, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`,
                 },
             });
-
-            console.log('Course created successfully:', response.data);
+            reset();
+            toast.success('Course created successfully!');
         } catch (error) {
+            toast.error('Error creating course.');
             console.error('Error creating course:', error);
         }
     };
@@ -122,6 +125,7 @@ const CreateCourse: React.FC = () => {
                     Create Course
                 </button>
             </form>
+            <ToastContainer />
         </div>
     );
 };

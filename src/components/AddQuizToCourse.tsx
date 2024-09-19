@@ -31,7 +31,7 @@ const AddQuizToCourse: React.FC = () => {
 
   const onSubmit: SubmitHandler<QuizFormInputs> = async (data) => {
     try {
-      const response = await axios.post(addQuizeApi + `/${courseId}`, data, {
+      await axios.post(addQuizeApi + `/${courseId}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`
         }
