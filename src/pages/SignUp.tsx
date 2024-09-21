@@ -26,9 +26,11 @@ const SignUp: React.FC = () => {
         password: '',
         role: 'student',
     });
+    const [isSendOtpDisabled, setIsSendOtpDisabled] = useState(false);
 
     const onSubmit = async (data: FormValues) => {
         if (!otpSent) {
+            setIsSendOtpDisabled(true); // Disable the Send OTP button when clicked
             try {
                 setFormData({
                     name: data.name,
@@ -44,8 +46,12 @@ const SignUp: React.FC = () => {
             } catch (error) {
                 console.error('Error sending OTP:', error);
                 toast.error('Failed to send OTP');
+                setIsSendOtpDisabled(false); // Re-enable the Send OTP button if there is an error
+            } finally {
             }
         } else {
+            // Handle OTP verification without disabling the button
+
             if (data.otp == serverOtp) {
                 try {
                     const response = await axios.post(signUpApi, { ...formData });
@@ -53,13 +59,13 @@ const SignUp: React.FC = () => {
                     localStorage.setItem("authToken", response.data.token);
                     toast.success("User signed up successfully");
                     setTimeout(() => {
-                        navigate("/")
+                        navigate("/");
                         window.location.reload();
                     }, 800);
                 } catch (error) {
                     console.error('Error submitting form:', error);
                     toast.error('Failed to sign up');
-                }
+                } 
             } else {
                 console.error('Invalid OTP');
                 toast.error('Invalid OTP');
@@ -149,13 +155,16 @@ const SignUp: React.FC = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
+                        className={`w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 ${
+                            !otpSent ? '' : 'disabled:bg-purple-600'
+                        }`}
+                        disabled={!otpSent && isSendOtpDisabled} // Only disable the button when sending OTP
                     >
                         {otpSent ? 'Submit OTP' : 'Send OTP'}
                     </button>
                 </form>
                 <div className='flex mt-3'>
-                    <p>Already have an account?</p> <Link to={'/login'} className='ml-2 text-blue-600 underline' >Login</Link>
+                    <p>Already have an account?</p> <Link to={'/login'} className='ml-2 text-blue-600 underline'>Login</Link>
                 </div>
             </div>
         </div>
