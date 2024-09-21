@@ -175,7 +175,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
             if (!authToken) {
                 return navigate("/login");
             }
-            const { data } = await axios.post('http://localhost:4000/payment/api/create-payment-intent', {
+            const { data } = await axios.post(`${import.meta.env.VITE_SERVER_API}/payment/api/create-payment-intent`, {
                 amount: Number(course.price) * 100,
                 courseId: course._id,
             }, {
