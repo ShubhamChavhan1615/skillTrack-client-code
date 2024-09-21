@@ -21,6 +21,8 @@ import EditCourse from './components/EditCourse'
 import EnrolledCourses from './components/EnrolledCourses'
 import CreateGoogleMeet from './components/CreateGoogleMeet'
 import ScheduleMeeting from './components/ScheduleMeeting'
+import ResetPassword from './components/ResetPassword'
+import ChangePass from './components/ChangePass'
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/Signup' element={<SignUp />} />
           <Route path='/Login' element={<Login />} />
+          <Route path='/ResetPassword' element={<ResetPassword />} />
+          <Route path='/change-password/:email' element={<ChangePass />} />
           <Route path='/Courses' element={<Courses />} />
           <Route path='/Instructors' element={<Instructors />} />
           <Route path='/About' element={<About />} />

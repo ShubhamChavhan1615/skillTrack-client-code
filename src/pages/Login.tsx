@@ -83,10 +83,14 @@ const Login: React.FC = () => {
                     >
                         Login
                     </button>
-
-                    <p className="text-center text-sm text-gray-600 mt-4">
-                        Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign up</Link>
-                    </p>
+                    <div className="mt-4 text-center text-gray-500">
+                        <p className="text-xs mt-2">
+                            Forgot your password? <Link to="/ResetPassword" className="text-blue-400 hover:underline">Reset password</Link>
+                        </p>
+                        <p className="text-center text-sm text-gray-600 mt-4">
+                            Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign up</Link>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

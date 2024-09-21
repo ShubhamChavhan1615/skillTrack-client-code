@@ -10,3 +10,5 @@ export const AIChatApi = `${import.meta.env.VITE_SERVER_API}/api/ai/chat`
 export const createCourseApi = `${import.meta.env.VITE_SERVER_API}/instructor/api/create/course`
 export const editCourseApi = `${import.meta.env.VITE_SERVER_API}/instructor/api/edit/course`
 export const deleteCourseApi = `${import.meta.env.VITE_SERVER_API}/instructor/api/delete/course`
+export const resetPassApi = `${import.meta.env.VITE_SERVER_API}/api/valid/email`
+export const changePassApi = `${import.meta.env.VITE_SERVER_API}/api/change/password`
