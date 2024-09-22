@@ -4,6 +4,7 @@ import axios from "axios";
 import { getCourses } from "../../../services";
 
 interface Course {
+    enrollments: any;
     _id: string; // String type as per your provided data
     title: string;
     description: string;

@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
   }
 
 
-  
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-800 shadow-md sticky top-0 z-50 p-1">
       <div className="max-w-screen-xl mx-auto p-4 flex items-center justify-between">
@@ -85,7 +85,20 @@ const Navbar: React.FC = () => {
             Contact
           </Link>
           {user && user.role === 'instructor' && (
-            <Link to={'/AddCourse'} className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500" >AddCourse</Link>
+            <>
+              <Link
+                to="/AddCourse"
+                className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+              >
+                Add Course
+              </Link>
+              <Link
+                to="/EnrolledStudents"
+                className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+              >
+                Enrolled Students
+              </Link>
+            </>
           )}
 
           {/* Profile/Account Dropdown */}
@@ -150,7 +163,20 @@ const Navbar: React.FC = () => {
             Contact
           </Link>
           {user && user.role === 'instructor' && (
-            <Link to={'/AddCourse'} className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500" >AddCourse</Link>
+            <>
+              <Link
+                to="/AddCourse"
+                className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+              >
+                Add Course
+              </Link>
+              <Link
+                to="/EnrolledStudents"
+                className="text-gray-700 hover:text-blue-700 dark:text-gray-300 dark:hover:text-blue-500"
+              >
+                Enrolled Students
+              </Link>
+            </>
           )}
           {isLoggedIn ? (
             <>
