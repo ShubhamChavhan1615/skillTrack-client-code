@@ -66,7 +66,7 @@ const SignUp: React.FC = () => {
                 } catch (error) {
                     console.error('Error submitting form:', error);
                     toast.error('Failed to sign up');
-                } 
+                }
             } else {
                 console.error('Invalid OTP');
                 toast.error('Invalid OTP');
@@ -108,6 +108,7 @@ const SignUp: React.FC = () => {
                                     })}
                                     className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                     type="email"
+                                    autoComplete="email"
                                     placeholder="Enter your email"
                                 />
                                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
@@ -120,6 +121,7 @@ const SignUp: React.FC = () => {
                                     {...register('password', { required: 'Password is required' })}
                                     className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                     type="password"
+                                    autoComplete="current-password"
                                     placeholder="Enter your password"
                                 />
                                 {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
@@ -156,9 +158,8 @@ const SignUp: React.FC = () => {
 
                     <button
                         type="submit"
-                        className={`w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 ${
-                            !otpSent ? '' : 'disabled:bg-purple-600'
-                        }`}
+                        className={`w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 ${!otpSent ? '' : 'disabled:bg-purple-600'
+                            }`}
                         disabled={!otpSent && isSendOtpDisabled} // Only disable the button when sending OTP
                     >
                         {otpSent ? 'Submit OTP' : 'Send OTP'}

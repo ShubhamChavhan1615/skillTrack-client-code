@@ -37,7 +37,6 @@ export const { setUserProfile, clearUserProfile } = userProfileSlice.actions;
 export const fetchUserProfile = () => async (dispatch: AppDispatch) => {
   const authToken = localStorage.getItem("authToken");
   if (!authToken) {
-    console.error('No auth token found');
     return;
   }
   try {

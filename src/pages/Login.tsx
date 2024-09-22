@@ -60,6 +60,7 @@ const Login: React.FC = () => {
                             })}
                             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             type="email"
+                            autoComplete="email"
                             placeholder="Enter your email"
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
@@ -72,6 +73,7 @@ const Login: React.FC = () => {
                             {...register('password', { required: 'Password is required' })}
                             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             type="password"
+                            autoComplete="current-password"
                             placeholder="Enter your password"
                         />
                         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
