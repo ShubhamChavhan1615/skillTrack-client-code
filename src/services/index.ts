@@ -1,9 +1,9 @@
 export const sendOtpApi = `${import.meta.env.VITE_SERVER_API}/api/valid/email`
 export const loginApi = `${import.meta.env.VITE_SERVER_API}/api/user/login`
-export const signUpApi =  `${import.meta.env.VITE_SERVER_API}/api/user/signUp`
+export const signUpApi = `${import.meta.env.VITE_SERVER_API}/api/user/signUp`
 export const getUserProfileApi = `${import.meta.env.VITE_SERVER_API}/api/user/profile`
 export const getCourses = `${import.meta.env.VITE_SERVER_API}/api/all/courses`
-export const addCourse =  `${import.meta.env.VITE_SERVER_API}/instructor/api/create/course`
+export const addCourse = `${import.meta.env.VITE_SERVER_API}/instructor/api/create/course`
 export const getAllInstructors = `${import.meta.env.VITE_SERVER_API}/api/all/instructors`
 export const addQuizeApi = `${import.meta.env.VITE_SERVER_API}/quize/api/create/quiz`
 export const AIChatApi = `${import.meta.env.VITE_SERVER_API}/api/ai/chat`
@@ -12,3 +12,5 @@ export const editCourseApi = `${import.meta.env.VITE_SERVER_API}/instructor/api/
 export const deleteCourseApi = `${import.meta.env.VITE_SERVER_API}/instructor/api/delete/course`
 export const resetPassApi = `${import.meta.env.VITE_SERVER_API}/api/valid/email`
 export const changePassApi = `${import.meta.env.VITE_SERVER_API}/api/change/password`
+export const getUsersApi = `${import.meta.env.VITE_SERVER_API}/admin/api/view/all/users`
+export const deleteUserApi = `${import.meta.env.VITE_SERVER_API}/admin/api/delete/user/`

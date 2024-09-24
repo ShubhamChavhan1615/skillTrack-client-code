@@ -24,6 +24,7 @@ import ScheduleMeeting from './components/ScheduleMeeting'
 import ResetPassword from './components/ResetPassword'
 import ChangePass from './components/ChangePass'
 import EnrolledStudents from './components/EnrolledStudents'
+import ShowAllUsers from './components/admin/ShowAllUsers'
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path='/EnrolledStudents' element={<EnrolledStudents />} />
           <Route path='/course/:courseId/verify/google-meet' element={<CreateGoogleMeet />} />
           <Route path='/course/:courseId/schedule/google-meet' element={<ScheduleMeeting />} />
+          <Route path='/admin/:adminId/allusers' element={<ShowAllUsers />} />
         </Routes>
         <Footer />
       </Router>

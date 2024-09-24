@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import userProfileSlice from './features/user/userSlice';
 import coursesSlice from './features/coursesSlice';
 import instructorsSlice from './features/Instructors/instructorsSlice';
+import usersSlice from './features/admin/usersSlice';
 
 export const store = configureStore({
   reducer: {
     userProfileData: userProfileSlice,
     coursesData: coursesSlice,
-    instructorsData: instructorsSlice
+    instructorsData: instructorsSlice,
+    usersData: usersSlice
   },
 });
 
