@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { FiSend, FiMic, FiSmile } from 'react-icons/fi';
+import { FiSend, FiMic, FiSmile, FiCopy } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters, AiOutlineArrowDown } from 'react-icons/ai';
 import { BsMoon, BsSun } from 'react-icons/bs';
 import { AIChatApi } from '../services';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const emojis = ['😀', '😂', '😍', '😎', '😢', '😡', '👍', '🙏', '💯', '🎉'];
 
@@ -13,8 +16,8 @@ const ChatWithAI: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
     const [messages, setMessages] = useState<{ sender: 'user' | 'ai'; text: string; timestamp: string }[]>([]);
-    const [showFullResponse, setShowFullResponse] = useState<boolean>(false);
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+    const [copied, setCopied] = useState(false);
     const chatBoxRef = useRef<HTMLDivElement>(null);
 
     const handleSendMessage = async () => {
@@ -33,13 +36,8 @@ const ChatWithAI: React.FC = () => {
         } finally {
             setLoading(false);
             setPrompt('');
-            setShowFullResponse(false);
             scrollToBottom();
         }
-    };
-
-    const toggleShowFullResponse = () => {
-        setShowFullResponse(!showFullResponse);
     };
 
     const toggleTheme = () => {
@@ -142,16 +140,22 @@ const ChatWithAI: React.FC = () => {
                         {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>
-                {response && response.length > 300 && (
-                    <div className="mt-4 text-center">
-                        <span
-                            onClick={toggleShowFullResponse}
-                            className="text-purple-600 cursor-pointer font-semibold"
-                        >
-                            {showFullResponse ? 'Show Less' : 'Read More'}
-                        </span>
+
+                {/* Displaying code response */}
+                {response && (
+                    <div className="mt-6 relative">
+                        <SyntaxHighlighter language="javascript" style={dracula} className="rounded-md shadow-lg">
+                            {response}
+                        </SyntaxHighlighter>
+                        <CopyToClipboard text={response} onCopy={() => setCopied(true)}>
+                            <button className="absolute top-2 right-2 bg-gray-600 p-2 rounded-full hover:bg-gray-700 transition-colors">
+                                <FiCopy className="text-white" />
+                            </button>
+                        </CopyToClipboard>
+                        {copied && <p className="text-xs text-green-500 mt-2">Code copied!</p>}
                     </div>
                 )}
+
                 {messages.length > 3 && (
                     <button
                         onClick={scrollToBottom}
