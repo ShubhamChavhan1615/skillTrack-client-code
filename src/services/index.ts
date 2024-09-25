@@ -14,3 +14,4 @@ export const resetPassApi = `${import.meta.env.VITE_SERVER_API}/api/valid/email`
 export const changePassApi = `${import.meta.env.VITE_SERVER_API}/api/change/password`
 export const getUsersApi = `${import.meta.env.VITE_SERVER_API}/admin/api/view/all/users`
 export const deleteUserApi = `${import.meta.env.VITE_SERVER_API}/admin/api/delete/user/`
+export const getInstructorCourses = `${import.meta.env.VITE_SERVER_API}/instructor/api/get/instructor/courses`
