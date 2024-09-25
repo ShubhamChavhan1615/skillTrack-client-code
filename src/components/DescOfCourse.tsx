@@ -30,11 +30,16 @@ const DescOfCourse: React.FC = () => {
     const currentCourse = courses.find(course => course._id === selectedCourseId);
 
     // Calculate the average rating of the course
-    const averageRating = currentCourse?.rating 
-        ? currentCourse.rating.reduce((acc, val) => acc + val, 0) / currentCourse.rating.length 
+    const averageRating = currentCourse?.rating
+        ? currentCourse.rating.reduce((acc, val) => acc + val, 0) / currentCourse.rating.length
         : 0;
 
-    const relatedCourses = courses.filter(course => course.category === currentCourse?.category && course._id !== selectedCourseId);
+    const relatedCourses = courses.filter(course => {
+        return (
+            course.category?.trim() === currentCourse?.category?.trim() &&
+            course._id !== selectedCourseId
+        );
+    });
 
     // Handle user star rating click
     const handleStarClick = (rating: number) => {
@@ -110,7 +115,7 @@ const DescOfCourse: React.FC = () => {
 
                             {/* Action Buttons */}
                             <div className="flex space-x-4">
-                                <button 
+                                <button
                                     className="bg-green-600 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-green-500 transform transition duration-300 hover:scale-105"
                                     onClick={handleBuyNowClick}
                                 >
@@ -127,8 +132,8 @@ const DescOfCourse: React.FC = () => {
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">Related Courses</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {relatedCourses.map(course => (
-                        <div 
-                            key={course._id} 
+                        <div
+                            key={course._id}
                             className="p-4 border border-gray-200 rounded-lg shadow-lg bg-white hover:shadow-2xl transform transition duration-500 hover:scale-105 cursor-pointer"
                             onClick={() => handleCourseClick(course._id)}
                         >
