@@ -49,8 +49,6 @@ const SignUp: React.FC = () => {
         const response = await axios.post(sendOtpApi, { email: data.email });
         setOtpSent(true);
         toast.success('OTP sent successfully');
-        console.log(response.data.otp);
-        
         setServerOtp(response.data.otp);
         reset({ otp: '' });
       } catch (error) {
