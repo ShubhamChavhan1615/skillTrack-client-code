@@ -31,7 +31,7 @@ const DescOfCourse: React.FC = () => {
 
     // Calculate the average rating of the course
     const averageRating = currentCourse?.rating
-        ? currentCourse.rating.reduce((acc, val) => acc + val, 0) / currentCourse.rating.length
+        ? currentCourse.rating.reduce((acc: any, val: any) => acc + val, 0) / currentCourse.rating.length
         : 0;
 
     const relatedCourses = courses.filter(course => {
@@ -79,6 +79,7 @@ const DescOfCourse: React.FC = () => {
 
                             {/* Instructor Name */}
                             <p className="text-lg text-gray-500 mb-4">by {currentCourse.instructor.name}</p>
+                            <p className="text-lg text-gray-500 mb-4"> enrollments : {currentCourse.enrollments.length}</p>
 
                             {/* Average Rating */}
                             <div className="flex items-center mb-4">

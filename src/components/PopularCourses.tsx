@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from '../app/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../app/store/features/user/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
 import { deleteCourseApi } from '../services';
 
 const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU');
@@ -25,6 +25,7 @@ interface Course {
     rating: number[];
     price: string;
     category: string;
+    enrollments: string[];
 }
 
 interface PopularCoursesProps {
@@ -89,6 +90,9 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                             </h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
                                 Instructor: {course.instructor.name}
+                            </p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                enrollments : {course.enrollments.length}
                             </p>
                             <div className="flex justify-between items-center">
                                 <span className="text-lg font-semibold text-green-600 dark:text-green-400">
