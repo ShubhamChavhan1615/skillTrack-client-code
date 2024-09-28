@@ -53,7 +53,7 @@ const DescOfCourse: React.FC = () => {
                 return navigate("/login");
             }
 
-            const response = await axios.post(
+            await axios.post(
                 `${import.meta.env.VITE_SERVER_API}/api/course/${courseId}/rate`,
                 { rating },
                 {
