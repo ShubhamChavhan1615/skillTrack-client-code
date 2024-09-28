@@ -13,7 +13,7 @@ interface Course {
         _id: string;
         name: string;
     };
-    rating: number[]; 
+    ratings: { userId: string[]; value: number }[];
     price: string;
     category: string;
 }
@@ -42,7 +42,7 @@ export default coursesSlice.reducer;
 
 export const fetchCourses = () => async (dispatch: AppDispatch) => {
     try {
-        const response = await axios.get(getCourses); 
+        const response = await axios.get(getCourses);
         dispatch(setCourses(response.data.courses));
     } catch (error) {
         console.error("Failed to fetch courses:", error);

@@ -6,7 +6,7 @@ import { fetchCourses } from '../app/store/features/coursesSlice';
 import { useStripe, useElements, CardElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU'); // Replace with your Stripe publishable key
 
@@ -30,9 +30,10 @@ const DescOfCourse: React.FC = () => {
     const currentCourse = courses.find(course => course._id === selectedCourseId);
 
     // Calculate the average rating of the course
-    const averageRating = currentCourse?.rating
-        ? currentCourse.rating.reduce((acc: any, val: any) => acc + val, 0) / currentCourse.rating.length
+    const averageRating = currentCourse?.ratings?.length
+        ? currentCourse.ratings.reduce((acc, rating) => acc + rating.value, 0) / currentCourse.ratings.length
         : 0;
+
 
     const relatedCourses = courses.filter(course => {
         return (
@@ -42,8 +43,34 @@ const DescOfCourse: React.FC = () => {
     });
 
     // Handle user star rating click
-    const handleStarClick = (rating: number) => {
-        setUserRating(rating);
+    const handleStarClick = async (rating: number, courseId: string) => {
+        try {
+            setUserRating(rating);
+
+            const authToken = localStorage.getItem("authToken");
+            if (!authToken) {
+                toast.warn("Please log in to submit a rating."); // Show warning for authentication
+                return navigate("/login");
+            }
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_SERVER_API}/api/course/${courseId}/rate`,
+                { rating },
+                {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                }
+            );
+
+            // Show success message on successful submission
+            toast.success("Thank you for your rating!");
+        } catch (error: any) {
+            // Show error message on failure
+            const errorMessage = error.response?.data?.msg || "An error occurred while submitting your rating.";
+            toast.error(errorMessage);
+            console.log(errorMessage);
+        }
     };
 
     const handleCourseClick = (courseId: string) => {
@@ -61,6 +88,7 @@ const DescOfCourse: React.FC = () => {
 
     return (
         <Elements stripe={stripePromise}>
+            <ToastContainer/>
             <div className="p-6 max-w-4xl mx-auto">
                 {currentCourse ? (
                     <div className="mb-12 bg-white shadow-xl rounded-lg overflow-hidden transform transition duration-500">
@@ -88,7 +116,7 @@ const DescOfCourse: React.FC = () => {
                                     {'☆'.repeat(5 - Math.round(averageRating))}
                                 </span>
                                 <span className="text-gray-500">
-                                    ({currentCourse.rating?.length || 0} ratings)
+                                    ({currentCourse.ratings?.length || 0} ratings)
                                 </span>
                             </div>
 
@@ -99,7 +127,7 @@ const DescOfCourse: React.FC = () => {
                                     <button
                                         key={star}
                                         className={`text-2xl transition-colors duration-300 ${userRating >= star ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
-                                        onClick={() => handleStarClick(star)}
+                                        onClick={() => handleStarClick(star, currentCourse._id)}
                                     >
                                         ★
                                     </button>
