@@ -22,7 +22,7 @@ interface Course {
         _id: string;
         name: string;
     };
-    rating: number[];
+    ratings: { userId: string[]; value: number }[];
     price: string;
     category: string;
     enrollments: string[];
