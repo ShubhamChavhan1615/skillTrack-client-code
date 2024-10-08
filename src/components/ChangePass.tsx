@@ -12,15 +12,14 @@ interface FormData {
 }
 
 const ChangePass: React.FC = () => {
-    const { email } = useParams<{ email: string }>(); // Get the email from the URL parameters
-    const navigate = useNavigate(); // Initialize useNavigate for redirection
+    const { email } = useParams<{ email: string }>(); 
+    const navigate = useNavigate(); 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         console.log('Submitting data:', data); // Debugging log
 
         try {
-            // Sending the email as part of the request data
             const response = await axios.put(`${changePassApi}/${email}`, { password: data.newPassword });
 
             console.log('Response:', response); // Debugging log
@@ -32,7 +31,6 @@ const ChangePass: React.FC = () => {
                 // Show success toast
                 toast.success('Password changed successfully!');
 
-                // Navigate to the home page after a brief delay to allow the toast to display
                 setTimeout(() => {
                     navigate('/');
                     window.location.reload();

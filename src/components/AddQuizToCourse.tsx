@@ -128,7 +128,6 @@ const AddQuizToCourse: React.FC = () => {
           </div>
         ))}
 
-        {/* Add New Question Button */}
         <button
           type="button"
           onClick={() => append({ question: '', options: ['', '', ''], correctAnswer: '' })}
@@ -137,7 +136,6 @@ const AddQuizToCourse: React.FC = () => {
           Add New Question
         </button>
 
-        {/* Submit Button */}
         <button type="submit" className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
           Create Quiz
         </button>
