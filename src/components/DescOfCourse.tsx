@@ -198,48 +198,106 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    // const handlePayment = async (event: React.FormEvent) => {
+    //     event.preventDefault();
+    //     if (!stripe || !elements) return;
+
+    //     setLoading(true);
+
+    //     try {
+    //         const authToken = localStorage.getItem("authToken");
+    //         if (!authToken) {
+    //             return navigate("/login");
+    //         }
+    //         const { data } = await axios.post('http://localhost:4000/payment/api/create-payment-intent', {
+    //             amount: Number(course.price) * 100,
+    //             courseId: course._id,
+    //         }, {
+    //             headers: {
+    //                 Authorization: `Bearer ${authToken}`
+    //             }
+    //         });
+
+    //         const clientSecret = data.clientSecret;
+
+    //         const result = await stripe.confirmCardPayment(clientSecret, {
+    //             payment_method: {
+    //                 card: elements.getElement(CardElement)!,
+    //             },
+    //         });
+
+    //         if (result.error) {
+    //             console.error(result.error.message);
+    //             toast.error(result.error.message);
+    //         } else if (result.paymentIntent?.status === 'succeeded') {
+    //             toast.success('Payment succeeded!');
+    //             console.log('Payment succeeded!');
+    //         }
+    //     } catch (error) {
+    //         toast.error("");
+    //         console.error('Payment error:', error);
+    //     } finally {
+    //         setLoading(false);
+    //         onClose();
+    //     }
+    // };
+
     const handlePayment = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!stripe || !elements) return;
-
+    
         setLoading(true);
-
+    
         try {
             const authToken = localStorage.getItem("authToken");
             if (!authToken) {
                 return navigate("/login");
             }
+    
+            // Send payment request to backend
             const { data } = await axios.post('http://localhost:4000/payment/api/create-payment-intent', {
-                amount: Number(course.price) * 100,
+                amount: Number(course.price) * 100, // Convert to smallest unit (paise)
                 courseId: course._id,
             }, {
                 headers: {
                     Authorization: `Bearer ${authToken}`
                 }
             });
-
+    
             const clientSecret = data.clientSecret;
-
+    
+            // Confirm the card payment
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement)!,
                 },
             });
-
+    
             if (result.error) {
+                // If there's an error in the card payment process
                 console.error(result.error.message);
                 toast.error(result.error.message);
             } else if (result.paymentIntent?.status === 'succeeded') {
+                // Payment succeeded
                 toast.success('Payment succeeded!');
                 console.log('Payment succeeded!');
             }
-        } catch (error) {
+        } catch (error: any) {
+            // Handle errors, including 400 response
+            if (axios.isAxiosError(error) && error.response) {
+                const errorMessage = error.response.data.error || 'An error occurred during the payment process.';
+                toast.error(errorMessage);
+            } else {
+                // Handle other types of errors (e.g., network issues)
+                toast.error('Something went wrong. Please try again later.');
+            }
             console.error('Payment error:', error);
         } finally {
             setLoading(false);
             onClose();
         }
     };
+    
 
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
