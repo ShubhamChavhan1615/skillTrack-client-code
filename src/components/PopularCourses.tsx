@@ -202,7 +202,15 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ course, onClose }) => {
             } else if (result.paymentIntent?.status === 'succeeded') {
                 toast.success('Payment succeeded!');
             }
-        } catch (error) {
+        } catch (error: any) {
+            // Handle errors, including 400 response
+            if (axios.isAxiosError(error) && error.response) {
+                const errorMessage = error.response.data.error || 'An error occurred during the payment process.';
+                toast.error(errorMessage);
+            } else {
+                // Handle other types of errors (e.g., network issues)
+                toast.error('Something went wrong. Please try again later.');
+            }
             console.error('Payment error:', error);
         } finally {
             setLoading(false);
