@@ -255,7 +255,7 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
             }
     
             // Send payment request to backend
-            const { data } = await axios.post('http://localhost:4000/payment/api/create-payment-intent', {
+            const { data } = await axios.post(`${import.meta.env.VITE_SERVER_API}/payment/api/create-payment-intent`, {
                 amount: Number(course.price) * 100, // Convert to smallest unit (paise)
                 courseId: course._id,
             }, {
