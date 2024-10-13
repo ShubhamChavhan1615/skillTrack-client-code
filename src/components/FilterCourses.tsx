@@ -7,7 +7,7 @@ interface FilterCoursesProps {
 const FilterCourses: React.FC<FilterCoursesProps> = ({ onFilter }) => {
   const [category, setCategory] = useState('');
 
-  // Automatically apply filters when category or instructor changes
+  // Automatically apply filters when category  changes
   useEffect(() => {
     onFilter(category);
   }, [category, onFilter]);
