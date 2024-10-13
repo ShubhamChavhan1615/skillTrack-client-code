@@ -198,50 +198,6 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    // const handlePayment = async (event: React.FormEvent) => {
-    //     event.preventDefault();
-    //     if (!stripe || !elements) return;
-
-    //     setLoading(true);
-
-    //     try {
-    //         const authToken = localStorage.getItem("authToken");
-    //         if (!authToken) {
-    //             return navigate("/login");
-    //         }
-    //         const { data } = await axios.post('http://localhost:4000/payment/api/create-payment-intent', {
-    //             amount: Number(course.price) * 100,
-    //             courseId: course._id,
-    //         }, {
-    //             headers: {
-    //                 Authorization: `Bearer ${authToken}`
-    //             }
-    //         });
-
-    //         const clientSecret = data.clientSecret;
-
-    //         const result = await stripe.confirmCardPayment(clientSecret, {
-    //             payment_method: {
-    //                 card: elements.getElement(CardElement)!,
-    //             },
-    //         });
-
-    //         if (result.error) {
-    //             console.error(result.error.message);
-    //             toast.error(result.error.message);
-    //         } else if (result.paymentIntent?.status === 'succeeded') {
-    //             toast.success('Payment succeeded!');
-    //             console.log('Payment succeeded!');
-    //         }
-    //     } catch (error) {
-    //         toast.error("");
-    //         console.error('Payment error:', error);
-    //     } finally {
-    //         setLoading(false);
-    //         onClose();
-    //     }
-    // };
-
     const handlePayment = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!stripe || !elements) return;
