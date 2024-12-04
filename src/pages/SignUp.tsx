@@ -96,8 +96,8 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      const paymentResponse = await axios.post(`${import.meta.env.VITE_SERVER_API}/payment/api/instructor/create-payment-intent`, {
-        amount: 5000 * 100, // amount in paise
+      const paymentResponse = await axios.post(`${import.meta.env.VITE_SERVER_API}/payment/api/instructor/create-payment-intent/${formData.email}`, {
+        amount: 500 * 100, // amount in paise
         description: 'Instructor Sign Up Fee',
       });
       const clientSecret = paymentResponse.data.clientSecret;
@@ -238,7 +238,7 @@ const SignUp: React.FC = () => {
                 disabled={!stripe || !elements || loading}
                 className="w-full mt-4 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200"
               >
-                {loading ? 'Processing...' : 'Pay ₹5000'}
+                {loading ? 'Processing...' : 'Pay ₹50000'}
               </button>
               <button
                 onClick={() => setShowPaymentModal(false)}
