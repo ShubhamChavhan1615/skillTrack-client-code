@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const SignUpWithGoogle: React.FC = () => {
     const navigate = useNavigate();
-    const [role, setRole] = useState<string>("student"); // State for role selection
 
     const handleGoogleLoginSuccess = async (credentialResponse: any) => {
         try {
             // Send the token and role to the server
             const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/google/signup`, {
                 token: credentialResponse.credential,
-                role,
             });
             console.log("Signup successful:", response.data);
             setTimeout(() => {
@@ -35,7 +33,7 @@ const SignUpWithGoogle: React.FC = () => {
                 <h1 className="text-2xl font-bold mb-6">Sign Up with Google</h1>
 
                 {/* Role Selection */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                     <label className="block text-lg font-medium text-gray-700 mb-2">Select Role:</label>
                     <select
                         value={role}
@@ -45,7 +43,7 @@ const SignUpWithGoogle: React.FC = () => {
                         <option value="student">Student</option>
                         <option value="instructor">Instructor</option>
                     </select>
-                </div>
+                </div> */}
 
                 {/* Google Login Button */}
                 <GoogleLogin

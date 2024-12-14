@@ -136,9 +136,10 @@ const SignUp: React.FC = () => {
       <ToastContainer />
       <div className="bg-white text-gray-800 p-10 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-3xl font-semibold text-center mb-6">{otpSent ? 'Enter OTP' : 'Sign Up'}</h2>
-        <div className="text-center mb-2">
+        <div className="text-center mb-2 border rounded-lg">
           <span className="text-sm">Continue with google account?</span>
-          <Link to="/auth/google/signup" className="text-purple-600 font-medium ml-2 inline-block"><FcGoogle /></Link>
+          <Link to="/auth/google/signup" className="text-purple-600 font-medium ml-2 inline-block"><FcGoogle /></Link><br />
+          <span className='text-sm'>Available for only student</span>
         </div>
         <hr className='p-2' />
         <form onSubmit={handleSubmit(onSubmit)}>
