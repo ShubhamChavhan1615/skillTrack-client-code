@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { FcGoogle } from 'react-icons/fc';
 
 const stripePromise = loadStripe('pk_test_51PxoUl2Katb405IjRgSHqoW7fATTF3ud6jXZ7B2nk1r8lvINvwHjDnKEtHl8ugrSu4G0dOK4dRxg1G2pILdvktPU00RfSlc4sU');
 
@@ -131,11 +132,15 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+    <div className="flex justify-center p-3 items-center min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <ToastContainer />
       <div className="bg-white text-gray-800 p-10 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-3xl font-semibold text-center mb-6">{otpSent ? 'Enter OTP' : 'Sign Up'}</h2>
-
+        <div className="text-center mb-2">
+          <span className="text-sm">Continue with google account?</span>
+          <Link to="/auth/google/signup" className="text-purple-600 font-medium ml-2 inline-block"><FcGoogle /></Link>
+        </div>
+        <hr className='p-2' />
         <form onSubmit={handleSubmit(onSubmit)}>
           {!otpSent && (
             <>
@@ -224,7 +229,7 @@ const SignUp: React.FC = () => {
         <div className="text-center mt-4">
           <span className="text-sm">Already have an account?</span>
           <Link to="/login" className="text-purple-600 font-medium ml-2">Login</Link>
-        </div>
+        </div> 
       </div>
 
       {showPaymentModal && (

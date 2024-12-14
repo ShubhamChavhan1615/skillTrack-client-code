@@ -25,6 +25,7 @@ import ResetPassword from './components/ResetPassword'
 import ChangePass from './components/ChangePass'
 import EnrolledStudents from './components/EnrolledStudents'
 import ShowAllUsers from './components/admin/ShowAllUsers'
+import SignUpWithGoogle from './pages/googleAuth/SignUpWithGoogle'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route path='/auth/google/signup' element={<SignUpWithGoogle />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Home />} />
           <Route path='/Signup' element={<SignUp />} />
