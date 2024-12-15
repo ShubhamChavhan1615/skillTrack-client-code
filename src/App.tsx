@@ -26,6 +26,7 @@ import ChangePass from './components/ChangePass'
 import EnrolledStudents from './components/EnrolledStudents'
 import ShowAllUsers from './components/admin/ShowAllUsers'
 import SignUpWithGoogle from './pages/googleAuth/SignUpWithGoogle'
+import LoginWithGoogle from './pages/googleAuth/LoginWithGoogle'
 
 
 function App() {
@@ -34,7 +35,6 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/auth/google/signup' element={<SignUpWithGoogle />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Home />} />
           <Route path='/Signup' element={<SignUp />} />
@@ -56,6 +56,8 @@ function App() {
           <Route path='/course/:courseId/verify/google-meet' element={<CreateGoogleMeet />} />
           <Route path='/course/:courseId/schedule/google-meet' element={<ScheduleMeeting />} />
           <Route path='/admin/:adminId/allusers' element={<ShowAllUsers />} />
+          <Route path='/auth/google/signup' element={<SignUpWithGoogle />} />
+          <Route path='/auth/google/login' element={<LoginWithGoogle />} />
         </Routes>
         <Footer />
       </Router>

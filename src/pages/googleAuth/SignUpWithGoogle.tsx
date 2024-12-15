@@ -2,6 +2,8 @@ import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUpWithGoogle: React.FC = () => {
     const navigate = useNavigate();
@@ -12,13 +14,14 @@ const SignUpWithGoogle: React.FC = () => {
             const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/google/signup`, {
                 token: credentialResponse.credential,
             });
-            console.log("Signup successful:", response.data);
+            toast.success('Signup successful')
             setTimeout(() => {
                 localStorage.setItem("authToken", response.data.authToken);
                 navigate("/");
                 window.location.reload();
             }, 999);
         } catch (error) {
+            toast.error('Error during signup')
             console.error("Error during signup:", error);
         }
     };
@@ -30,6 +33,7 @@ const SignUpWithGoogle: React.FC = () => {
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
             <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+                <ToastContainer/>
                 <h1 className="text-2xl font-bold mb-6">Sign Up with Google</h1>
 
                 {/* Role Selection */}

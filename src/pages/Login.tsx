@@ -6,6 +6,7 @@ import { loginApi } from '../services';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
 
 interface LoginValues {
     email: string;
@@ -92,6 +93,11 @@ const Login: React.FC = () => {
                         <p className="text-center text-sm text-gray-600 mt-4">
                             Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign up</Link>
                         </p>
+                        <div className="text-center mb-2 border rounded-lg">
+                            <span className="text-sm">Continue with google account?</span>
+                            <Link to="/auth/google/login" className="text-purple-600 font-medium ml-2 inline-block"><FcGoogle /></Link><br />
+                            <span className='text-sm'>Available for only student</span>
+                        </div>
                     </div>
                 </form>
             </div>
