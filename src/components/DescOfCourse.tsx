@@ -79,6 +79,11 @@ const DescOfCourse: React.FC = () => {
     };
 
     const handleBuyNowClick = () => {
+        const authToken = localStorage.getItem("authToken");
+        if (!authToken) {
+            toast.warn("Please log in to buy course."); // Show warning for authentication
+            return navigate("/login");
+        }
         setShowPaymentModal(true); // Show PaymentModal
     };
 
@@ -88,7 +93,7 @@ const DescOfCourse: React.FC = () => {
 
     return (
         <Elements stripe={stripePromise}>
-            <ToastContainer/>
+            <ToastContainer />
             <div className="p-6 max-w-4xl mx-auto">
                 {currentCourse ? (
                     <div className="mb-12 bg-white shadow-xl rounded-lg overflow-hidden transform transition duration-500">
@@ -201,15 +206,15 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
     const handlePayment = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!stripe || !elements) return;
-    
+
         setLoading(true);
-    
+
         try {
             const authToken = localStorage.getItem("authToken");
             if (!authToken) {
                 return navigate("/login");
             }
-    
+
             // Send payment request to backend
             const { data } = await axios.post(`${import.meta.env.VITE_SERVER_API}/payment/api/create-payment-intent`, {
                 amount: Number(course.price) * 100, // Convert to smallest unit (paise)
@@ -219,16 +224,16 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
                     Authorization: `Bearer ${authToken}`
                 }
             });
-    
+
             const clientSecret = data.clientSecret;
-    
+
             // Confirm the card payment
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement)!,
                 },
             });
-    
+
             if (result.error) {
                 // If there's an error in the card payment process
                 console.error(result.error.message);
@@ -253,7 +258,7 @@ const PaymentModal: React.FC<{ course: any; onClose: () => void }> = ({ course, 
             onClose();
         }
     };
-    
+
 
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">

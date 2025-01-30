@@ -27,7 +27,7 @@ const Instructors: React.FC = () => {
               <p>Courses:</p>
               <ul className="list-disc list-inside">
                 {instructor.courses.map((course: { _id: React.Key | null | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => (
-                  <Link to={`description/course/${course._id}`}><li key={course._id}>{course.title}</li></Link>
+                  <Link to={`/description/course/${course._id}`}><li key={course._id}>{course.title}</li></Link>
                 ))}
               </ul>
             </div>
