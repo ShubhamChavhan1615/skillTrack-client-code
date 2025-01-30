@@ -43,6 +43,7 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
         dispatch(fetchUserProfile());
     }, [dispatch]);
 
+    const navigate = useNavigate();
     const openPaymentModal = (course: Course) => {
         setSelectedCourse(course);
     };
@@ -108,8 +109,9 @@ const PopularCourses: React.FC<PopularCoursesProps> = ({ courses }) => {
                                         Enroll Now
                                     </Link>
                                 ) : (
+                                    // changed code here 
                                     <button
-                                        onClick={() => openPaymentModal(course)}
+                                        onClick={() => (!user) ? navigate('/login') : openPaymentModal(course)}
                                         className="bg-blue-600 text-white py-2 px-4 shadow-lg hover:bg-blue-700 transition-transform duration-300 hover:scale-105"
                                     >
                                         Buy Now

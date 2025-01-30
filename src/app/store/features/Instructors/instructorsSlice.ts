@@ -40,11 +40,11 @@ export default instructorProfilesSlice.reducer;
 
 // Async action to fetch all instructors
 export const fetchInstructorProfiles = () => async (dispatch: AppDispatch) => {
-  const authToken = localStorage.getItem("authToken");
-  if (!authToken) {
-    console.error("No auth token found");
-    return;
-  }
+  // const authToken = localStorage.getItem("authToken");
+  // if (!authToken) {
+  //   console.error("No auth token found");
+  //   return;
+  // }
 
   try {
     const response = await axios.get(getAllInstructors);
