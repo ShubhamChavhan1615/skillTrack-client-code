@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -28,6 +28,8 @@ import ShowAllUsers from './components/admin/ShowAllUsers'
 import SignUpWithGoogle from './pages/googleAuth/SignUpWithGoogle'
 import LoginWithGoogle from './pages/googleAuth/LoginWithGoogle'
 
+const isAuthenticated = localStorage.getItem('authToken');
+
 
 function App() {
   return (
@@ -37,8 +39,8 @@ function App() {
         <Routes>
           <Route path='*' element={<NotFound />} />
           <Route path='/' element={<Home />} />
-          <Route path='/Signup' element={<SignUp />} />
-          <Route path='/Login' element={<Login />} />
+          <Route path='/Signup' element={isAuthenticated ? <Navigate to={'/'} /> : <SignUp />} />
+          <Route path='/Login' element={isAuthenticated ? <Navigate to={'/'} /> : <Login />} />
           <Route path='/ResetPassword' element={<ResetPassword />} />
           <Route path='/change-password/:email' element={<ChangePass />} />
           <Route path='/Courses' element={<Courses />} />
