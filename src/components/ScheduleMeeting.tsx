@@ -14,9 +14,10 @@ const ScheduleMeeting: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<MeetingFormInputs>();
     const [meetLink, setMeetLink] = useState('');
     const { courseId } = useParams<{ courseId: string }>();
-
+    const [loadingBtn, setLoadingBtn] = useState<boolean>(false)
     const onSubmit: SubmitHandler<MeetingFormInputs> = async (data) => {
         try {
+            setLoadingBtn(true)
             const response = await axios.post(`${import.meta.env.VITE_SERVER_API}/google/create-meet/${courseId}`, data);
             setMeetLink(response.data.meetLink);
         } catch (error) {
@@ -64,7 +65,7 @@ const ScheduleMeeting: React.FC = () => {
                     />
                     {errors.endTime && <p className="text-red-500 text-sm mt-1">{errors.endTime.message}</p>}
                 </div>
-                <button type="submit" className="bg-green-600 text-white py-3 px-6 w-full rounded-lg hover:bg-green-500 transition-all">
+                <button disabled={loadingBtn} type="submit" className="bg-green-600 text-white py-3 px-6 w-full rounded-lg hover:bg-green-500 transition-all">
                     Schedule Meeting
                 </button>
             </form>
