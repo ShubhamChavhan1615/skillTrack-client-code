@@ -48,8 +48,8 @@ const Footer: React.FC = () => {
             <div className="container mx-auto mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center px-6 lg:px-0">
                 <p className="text-gray-400 text-sm">Developed by <span className="font-semibold">Shubham Chavhan</span> - Full Stack Developer</p>
                 <div className="flex space-x-4 mt-4 md:mt-0">
-                    <a href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
-                    <a href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
+                    <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Privacy Policy</Link>
+                    <Link to="/terms" className="text-gray-400 hover:text-white text-sm transition-colors duration-300">Terms of Service</Link>
                 </div>
             </div>
         </footer>

@@ -27,6 +27,8 @@ import EnrolledStudents from './components/EnrolledStudents'
 import ShowAllUsers from './components/admin/ShowAllUsers'
 import SignUpWithGoogle from './pages/googleAuth/SignUpWithGoogle'
 import LoginWithGoogle from './pages/googleAuth/LoginWithGoogle'
+import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 
 const isAuthenticated = localStorage.getItem('authToken');
 
@@ -60,6 +62,8 @@ function App() {
           <Route path='/admin/:adminId/allusers' element={<ShowAllUsers />} />
           <Route path='/auth/google/signup' element={<SignUpWithGoogle />} />
           <Route path='/auth/google/login' element={<LoginWithGoogle />} />
+          <Route path='/privacy' element={<Privacy />} />
+          <Route path='/terms' element={<Terms />} />
         </Routes>
         <Footer />
       </Router>
